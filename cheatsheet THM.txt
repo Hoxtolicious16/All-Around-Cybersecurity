@@ -1,1 +1,98 @@
-LINUX	Hashcat		hashcat -m -a {hashfile} {wordlist}		FLAGS			-m specifies the hashtype in numeric format, e.g -m 1000 is NTLM. use man hashcat for more codes.			-a specifies the attackmode, -a 0 = 1 password after the other from the wordlist			hashfile is the hash you want to crack			wordlist speaks for itself.	Hashes		md5sum {file}		sha1sum		sha256sum		sha512sum			outputs the hash as a hexadecimal				generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 			cleartext passwords like Databases do.		You can salt hashes by adding a string to the original hash value which changes the hash drastically		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme	NMap		nmap (IP)/24(FLAGS)		FLAGS			-sn ping scan host (no ports only active)			-sL List Target IPs/names			-sT TCP connect, complete Handshake			-sS stealth scan, only 1st step of Handshake			-sU UDP scan			-F scans only 100 most common ports (instead of 1000)			-pX-Y scans ports from x to y. -p- scans EVERY port.			-O OS detection (isn't always reliable)			-sV Service Version scan			-A O & sV together plus other things			-Pn treat every Host as Online and force scan.			-oN {filename} -saves as normal output			-oG GREPable output		TIMINGS			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)			-T2 polite 40.56 sec for 100p (0.4 sec for every port)			-T3 normal 0.15 sec for 100p			-T4 aggressive 0.13 sec for 100p	Linux		ls (optional flags)		cd		cat		head -n (how many lines)		find -Name {file} (can use * for anything)		grep "string" {file} (-r = recursively thru all files inside a dir)			grep -r "string" /dir/	SSH		ssh name@ip	Telnet		Telnet (ip) (port)		GET /{file} HTTP/1.1		Host: xyz (optional)	TCPDump		ip a s		sudo tcpdump (FILTERS) (FLAGS)		FILTERS			host xyz Limit TO & FROM xyz host			port xzy Limit TO & FROM xyz port			src xyz host/port Limit FROM xyz host/port			dst xyz host/port Limit TO xyz host/port			Protocol xyz Limit to IP, IP6, UDP, TCP, ICMP or ARP				and Captures packets where both conditions are true			or Captures packets when either one of the conditions is true			not Captures packets when the condition is not true		FLAGS			-i eth interface			-w save to file			-r read from file			-c Limit sniffs to certain count			-n dont resolve ip -nn dont resolve protocols			-v -vv -vvv verbosity		WINDOWS	PowerShell		Find-Module -Name "*x*"		Get-Help x		Get-Help x -examples		Get-Command -Name *x*		Get-Command -CommandType "x"		xyz /?		Get-Item -Path xyz -Stream *		Get-FileHash -Path xyz
+LINUX
+	Hashcat
+		hashcat -m -a {hashfile} {wordlist}
+		FLAGS
+			-m specifies the hashtype in numeric format, e.g -m 1000 is NTLM. use man hashcat for more codes.
+			-a specifies the attackmode, -a 0 = 1 password after the other from the wordlist
+			hashfile is the hash you want to crack
+			wordlist speaks for itself.
+	Hashes
+		md5sum {file}
+		sha1sum
+		sha256sum
+		sha512sum
+			outputs the hash as a hexadecimal
+		
+		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 			cleartext passwords like Databases do.
+		You can salt hashes by adding a string to the original hash value which changes the hash drastically
+		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :
+		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme
+
+	NMap
+		nmap (IP)/24(FLAGS)
+		FLAGS
+			-sn ping scan host (no ports only active)
+			-sL List Target IPs/names
+			-sT TCP connect, complete Handshake
+			-sS stealth scan, only 1st step of Handshake
+			-sU UDP scan
+			-F scans only 100 most common ports (instead of 1000)
+			-pX-Y scans ports from x to y. -p- scans EVERY port.
+			-O OS detection (isn't always reliable)
+			-sV Service Version scan
+			-A O & sV together plus other things
+			-Pn treat every Host as Online and force scan.
+
+			-oN {filename} -saves as normal output
+			-oG GREPable output
+		TIMINGS
+			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)
+			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)
+			-T2 polite 40.56 sec for 100p (0.4 sec for every port)
+			-T3 normal 0.15 sec for 100p
+			-T4 aggressive 0.13 sec for 100p
+
+	Linux
+		ls (optional flags)
+		cd
+		cat
+		head -n (how many lines)
+		find -Name {file} (can use * for anything)
+		grep "string" {file} (-r = recursively thru all files inside a dir)
+			grep -r "string" /dir/
+
+  Pathing
+    cd /foo/bar/ is an absolute path the ROOT of the filesysem, then foo, then bar
+    cd ../foo/bar Is relative and goes UP one directory, looks for foo, then bar
+    cd foo/bar is relative and does not go up first. ./ refers to the current directory
+
+	SSH
+		ssh name@ip
+
+	Telnet
+		Telnet (ip) (port)
+		GET /{file} HTTP/1.1
+		Host: xyz (optional)
+
+	TCPDump
+		ip a s
+		sudo tcpdump (FILTERS) (FLAGS)
+		FILTERS
+			host xyz Limit TO & FROM xyz host
+			port xzy Limit TO & FROM xyz port
+			src xyz host/port Limit FROM xyz host/port
+			dst xyz host/port Limit TO xyz host/port
+			Protocol xyz Limit to IP, IP6, UDP, TCP, ICMP or ARP
+	
+			and Captures packets where both conditions are true
+			or Captures packets when either one of the conditions is true
+			not Captures packets when the condition is not true
+		FLAGS
+			-i eth interface
+			-w save to file
+			-r read from file
+			-c Limit sniffs to certain count
+			-n dont resolve ip -nn dont resolve protocols
+			-v -vv -vvv verbosity
+	
+	
+WINDOWS
+	PowerShell
+		Find-Module -Name "*x*"
+		Get-Help x
+		Get-Help x -examples
+		Get-Command -Name *x*
+		Get-Command -CommandType "x"
+		xyz /?
+		Get-Item -Path xyz -Stream *
+		Get-FileHash -Path xyz
