@@ -44,6 +44,19 @@ LINUX
 		migrate {process_id} to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
 		use "xyz" when refering to paths
 		
+	John The Ripper
+		unshadow /etc/passwd /etc/shadow > unshadowed.txt
+			passwd clear readable general user data
+			shadow is where password hashes are stored, needs admin priv. thats what you want to crack
+		john (option) (file to crack path)
+		FLAGS
+			--wordlist={wordlist path} determines what wordlist to use
+			--format={format} determines the hash format
+				--list=formats to find out what formats john supports
+			--single single cracking mode
+
+		ssh/rar/zip2john {zipfile} > {ziphash.txt}
+			makes the hash readable for john to crack.
 
 	Hashcat
 		hashcat -m x -a y {hashfile} {wordlist}
@@ -104,6 +117,7 @@ LINUX
 
 	SSH
 		ssh name@ip
+		scp path/to/file/you/wanna/transfer username@192.168.ip.address:/destination/path/on/other/machine
 
 	Telnet
 		Telnet (ip) (port)
