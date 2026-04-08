@@ -43,7 +43,16 @@ LINUX
 		ps to display all processes.
 		migrate {process_id} to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
 		use "xyz" when refering to paths
-		
+	Hydra
+		hydra (FLAGS) {IP_Address} (FLAGS)
+		FLAGS
+			-l <username> sets the user for login
+			-P </Wordlist/path> to set the password wordlist
+			-t xzy sets the threads to spawn
+			ssh to set SSH login
+
+		sudo hydra -l -p {IP} http-post-form "loginURL:username=^USER^&password=^PASS^:F=incorrect"
+			this is for web forms, GET or POST Methods
 	John The Ripper
 		unshadow /etc/passwd /etc/shadow > unshadowed.txt
 			passwd clear readable general user data
@@ -77,6 +86,18 @@ LINUX
 		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :
 		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme
 
+	Gobuster
+		gobuster (FLAGS)
+		FLAGS
+			--help
+			dir to use directory/file enumeration mode
+				-u {URL} to set the targer
+				-w {/path/to/wordlist} to set the wordlist
+				-t to set the threads used
+				-r to redirect you to moved urls
+				-x .extension to find files with these extensions
+				-o {File} to output the results into a file
+			dns to use subdomain enumeration
 	NMap
 		nmap (IP)/24(FLAGS)
 		FLAGS
