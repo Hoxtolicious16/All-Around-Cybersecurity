@@ -91,13 +91,23 @@ LINUX
 		FLAGS
 			--help
 			dir to use directory/file enumeration mode
-				-u {URL} to set the targer
+				-u {URL} to set the target
 				-w {/path/to/wordlist} to set the wordlist
 				-t to set the threads used
 				-r to redirect you to moved urls
 				-x .extension to find files with these extensions
 				-o {File} to output the results into a file
 			dns to use subdomain enumeration
+				-c show CNAME records (can't use with -i flag)
+				-i shows ip addresses that the domain and subdomain resolve to
+				-d for the domain you want to enumerate
+			vhost to brute force virtual hosts (different websites hosted on the same host)
+				-u {URL} to set the target
+				--domain {2nd & 3rd lvl Domain} to set the domain if set with IP
+				--append-domain to add the set domain to every entry to not get false positives
+				--exlude-length x-y to ignore certain status codes that don't interest us
+				-m to set the http method (GET, POST)
+				-r follow redirects
 	NMap
 		nmap (IP)/24(FLAGS)
 		FLAGS
