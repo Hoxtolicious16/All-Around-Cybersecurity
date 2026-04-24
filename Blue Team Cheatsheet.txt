@@ -1,0 +1,128 @@
+LOGS
+	Host Centric Logs (user related logs)
+		user accessing a file
+		attempting to de/authenticate
+		PowerShell executions
+
+	Network Centric Logs
+		SSH Connections (Outbound, Inbound)
+		RDP Connections
+		FTP logs
+		Web Traffic
+		Network file sharing
+
+	Log Sources
+		Windows
+			Event Viewer
+		Linux
+			/var/log/httpd = HTTP Requests/Response and error logs
+			/var/log/cron = Events related to cron jobs are stored here
+			/var/log/auth.log & /secure = authentication related logs
+			/var/log/kern = kernel related Events
+		
+
+	RULES
+		generally you can set various kinds of alerts on you SIEM, depending on what kind of SIEM youre using, such as:
+			user gets 5 failed login attempts in 10 seconds (anti brute force)
+			if login successful after several failed attempts, raise alert
+			rule set to alert every time a USB is plugged in (best use case is company policy or schools)
+
+		Scenarios
+			Scenario 1
+			Because logs are like tracks, you want to cover those tracks as a hacker. For that, you need to delete those logs that you left behind... which you guessed, leaves logs that you deleted logs... but not what the 			logs were about. So you could make a rule to check If WinEventLog and EventID 104 (104 = deleted logs) then trigger an alert if found.
+
+			Scenario 2
+			Hackers or people who have malicious intent use commands like whoami to check their privilege and see what they can exploit. Almost no normal user will use whoami.
+			To protect you against that so you can react in time, you can set up a rule that looks something like
+			If Log Source WinEventLog and EventCode 4688 (new proccess in Command Line) and NewProcessName contains whoami then trigger alert.
+
+		You're gonna come across false positive and true positives, SIEM won't protect you from hackers, they'll only alert you if something happened that shouldn't happen. It's your job and responsibility to investigate these 		alerts and see if something fishy is going on. You're usually going to use this process:
+			1 Check for true positive, if false positive then check rules to avoid them in the future if possible
+			2 Perform further investigation
+			3 Contact user to ask about this activity
+			4 If Suspicious activity is confirmed, isolate the infected host and take them off the network ASAP
+			5 Block the suspicious IP.
+IDS (Intrusion Detection System)
+	this should not be confused with IPS (Intrusion Preventions System) this only alerts you if something violates your firewall. Apps such as Snort are good tools for this. IDS and IPS do not replace a firewall.
+	
+	HIDS (Host IDS)
+		installed individually on the host
+		provides more detailed visibility of host activities
+		hard to manage every host
+	NIDS (Network IDS)
+		detects potentially malicious activities within the entire network
+		monitors network traffic rather than activities
+		centralized view of all detections
+	DETECTION MODES
+	Signature based
+		recognized by patterns stored in the IDS database of that tool
+		vulnerable to newer attacks or zero days
+	Anomaly based
+		compares the current state of the network or host to the set baseline
+		abnormalities are getting noted down and sent as alerts
+		may trigger a lot of false positives if not fine-tuned
+	Hybrid IDS
+		a mix of signature and anomaly based IDS
+
+SNORT
+	under /etc/snort you will find the rule file, you can change the file using commands, here are some examples
+	
+	{ACTION} {PROTOCOL} {SOURCE_IP} {SOURCE_PORT} -> $HOME_NET {DESTINATION_PORT} (msg:"whatever alert"; sid:{SID}; rev:1;)
+	
+	$HOME_NET is a variable that you can change in the config file. It's the destination IP (your own network which you can define, example: 192.168.10.50 - 192.168.10.60)
+
+FIREWALLS
+	Stateless firewalls
+		basic filtering
+		no track of previous or future connections
+		efficient and fast firewall
+	
+	Stateful firewalls
+		recognize traffic by patterns and source
+		has more complex rules that can be set up
+		monitor connections
+
+	Proxy firewalls
+		inspect the data inside the packets too for malicious data
+		content filtering options
+		application control
+		decrypts and inspects ssl and tls data packets
+
+	Next-Generation firewalls (NGFW)
+		advanced threat protection
+		IPS (intrusion prevention system) included
+		IDS (intrusion detection system) included
+		identify anomalies based on data and simpler rules
+
+	RULES
+		You can usually set a lot of basic parameters in most firewalls, those are the following:
+		
+		Source address = Machine's IP address that would send
+		Destination address = Machine's IP address that would receive the data
+		Port = The port number for the traffic
+		Protocol = Protocol that you want to change (IMAP, TCP, UDP etc...)
+		Action = The action you want to take (allow, block, forward)
+		Direction = This determines if the rule should be for inbound traffic (receiving data) or outbound traffic (sending data)
+
+		In windows you can do this by going into WDF (Windows Defender Firewall) and then advanced settings. There you can set inbound, outbound rules and more.
+
+LINUX FIREWALL
+	sudo ufw (FLAG) {ACTION} {DIRECTION} {PORT}/{PROTOCOL}
+	FLAGS
+		status
+			numbered | to see all the rules
+		enable
+		disable
+		delete
+			x-y | choose which rule to delete (number)
+		default (this changes every single rule to be allowed, dont do this.)
+	ACTION
+		deny
+		allow
+	DIRECTION
+		incoming
+		outgoing
+	PORT
+		22, 80, 443 etc...
+	PROTOCOL
+		tcp, udp, IMAP etc...
