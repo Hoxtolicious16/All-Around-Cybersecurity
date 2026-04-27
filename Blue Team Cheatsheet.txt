@@ -65,6 +65,22 @@ IDS (Intrusion Detection System)
 		a mix of signature and anomaly based IDS
 
 SNORT
+	HOW TO USE
+	snort (FLAGS) (OPTIONS)
+	FLAGS
+		-v shows snort version
+		-i specifies network interface to listen to (e.g. eth0 or lo)
+		-c config file to use (snort.conf)
+		-A sets alert mode (console, fast, full, etc...)
+		-q quiet mode (less output)
+	OPTIONS
+		-l log alerts to /foo/bar
+		-T tests config file without running snort
+		-N disables packet logging
+	
+	EXAMPLE
+		sudo snort -q -l /var/log/snort -r Intro_to_IDS.pcap -A console -c /etc/snort/snort.conf
+
 	under /etc/snort you will find the rule file, you can change the file using commands, here are some examples
 	
 	{ACTION} {PROTOCOL} {SOURCE_IP} {SOURCE_PORT} -> $HOME_NET {DESTINATION_PORT} (msg:"whatever alert"; sid:{SID}; rev:1;)
