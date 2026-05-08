@@ -152,7 +152,14 @@ LINUX
 	SSH
 		ssh name@ip
 		scp path/to/file/you/wanna/transfer username@192.168.ip.address:/destination/path/on/other/machine
-
+	SMB
+		smbclient (FLAGS) \\\\{IP_ADDRESS}
+		FLAGS
+			-L list all the smb shares on the host
+			-N supresses password promt (if smb security mode is "Message signing enabled but not required")
+			-U {User} to log in as a user if you're missing permissions
+				needs to be used like smbclient -U bob \\\\{IP}\\{folder_shared}
+	
 	Telnet
 		Telnet (ip) (port)
 		GET /{file} HTTP/1.1
