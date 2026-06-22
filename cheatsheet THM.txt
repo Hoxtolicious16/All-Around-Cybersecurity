@@ -1,4 +1,29 @@
 LINUX
+	nslookup (Name Server Lookup)
+		nslookup (FLAGS) {domain}
+		FLAGS
+			-type=PTR {IP_Address} | reverse DNS lookup
+
+	dig (FQDN finder)
+		dig (FLAGS) {domain.com} @{IP}
+		FLAGS
+			record types
+				A  | Find IPv4 addresses
+				AAAA | Find IPv6 addresses
+				TXT | Find text records (api keys, tokens or flags)
+				MX | Find mail servers
+				CNAME | Find aliases to the IP (A records)
+				NS | Find the name server of the domain
+				any | everything from above (I suggest not using this, many dns servers block it)
+			Zone Transfer
+				axfr | used to find private A and CNAME records linked to the NS domain (internal records)
+
+	dnsenum (DNS subdomains enum)
+		dnsenum -f foo/bar --dnsserver {DNS_SERVER_IP} {subdomain}.domain.com
+		FLAGS
+			-f | sets the wordlist for subdomains enum
+			-o 
+			-p
 
 	RPCclient (MSRPC, administration tool)
 		rpcclient (FLAGS) {ip_address}
@@ -19,6 +44,20 @@ LINUX
 		after connecting
 			!<cmd> to execute local system commands
 			help | to get all the commands you can run
+
+	mount (NFS, mounts)
+		showmount (FLAGS) {IP}
+		FLAGS
+			-e | list all mounts
+			-a | show client names and folders they're using
+			-d | show only directories the user uses
+			-v | print version number only
+	
+		mkdir targer_nfs
+		sudo mount (FLAGS) {IP}:/mounted_nfs ./target_nfs
+		FLAGS
+			-t nfs | tell mount we're connecting to an NFS share
+			-o nolock | so we can read the files
 
 	Reverse Shells
 		python3 -m http.server 9000
@@ -109,9 +148,19 @@ LINUX
 		You can salt hashes by adding a string to the original cleartext before it gets hashed which changes the hash drastically
 		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :
 		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme
+	NetCat,ncat (banner grabbing and reverse bind shells)
+		nc (FLAGS) {IP} {Port}
+		FLAGS
+			-l | puts ncat in listening mode for incoming connections
+			-z | sends no data, used for port scanning
+			-u | uses UDP instead of TCP
+			-v | verbose mode
+			-n | don't resolve IP addresses
+		you can use a combination of more flags together, something like nc -lvnp x y
+
 	Whatweb
 		whatweb {IP_ADDRESS}
-			to find out what kind of server a website uses if banner grabbing doesn't work
+			to find out what kind of server a website uses if nc banner grabbing doesn't work
 
 	Gobuster
 		gobuster (FLAGS)
@@ -153,6 +202,9 @@ LINUX
 			-oN {filename} -saves as normal output
 			-oG GREPable output
 			-D RND:xyz to set up decoy IP adresses. Your IP will be put in that pool of random IP Adresses. Combine it with a proxy.
+			--disable-arp-ping to disable arp pinging. This is better at evading EDRs as it forces a L3 ping and does not come across as a high frequency ping sweep/tcp request
+			--source-port xyz to force nmap to send traffic from the chosen port
+			--data-length xyz adds a random extra data to the packet frame so they do not look like standard nmap probes (some EDRs look into it)
 		TIMINGS
 			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)
 			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)
