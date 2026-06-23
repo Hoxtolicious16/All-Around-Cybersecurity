@@ -270,7 +270,20 @@ LINUX
 			-c Limit sniffs to certain count
 			-n dont resolve ip -nn dont resolve protocols
 			-v -vv -vvv verbosity
-	
+	MySQL
+		mysql (FLAGS) {IP}
+		FLAGS
+			-u <user>
+			-p<password> | no space inbetween "-p" flag and password!
+			-h {IP}
+
+		COMMANDS
+			show databases;
+			use <database>;
+			show tables;
+			show columns from <table>;
+			select * from <table>;
+			select * from <table> where <column> = "<string>";
 	
 WINDOWS
 	PowerShell
