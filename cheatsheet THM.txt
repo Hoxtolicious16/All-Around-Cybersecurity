@@ -25,6 +25,20 @@ LINUX
 			-o | output file
 			-p | set Threads
 			-r | recursive, further enumerate the found subdomain
+	openssl (imap,pop3 connection)
+		openssl s_client -connect {IP}:IMAPS or pop3s
+			
+	snmpwalk
+		snmpwalk (FLAGS) -c {community_string} {IP}
+		FLAGS
+			-v 1|2c|3 	| sets version of snmp
+			-u user 	| username for v3
+			-a MD5|SHA	| Authentication Protocol for v3
+			-A {authphrase} | Authentication passphrase for v3
+	
+	onesixtyone (Community Strings SNMP)
+		onesixtyone -c {Wordlist} {IP}
+		if a string is found, it will be in brackets like [public]
 
 	RPCclient (MSRPC Administration tool)
 		rpcclient (FLAGS) {IP}
@@ -289,8 +303,22 @@ LINUX
 			-c Limit sniffs to certain count
 			-n dont resolve ip -nn dont resolve protocols
 			-v -vv -vvv verbosity
-	
-	
+
+	MySQL
+		mysql (FLAGS) {IP}
+		FLAGS
+			-u <user>
+			-p<password> | no space inbetween "-p" flag and password!
+			-h {IP}
+
+		COMMANDS
+			show databases;
+			use <database>;
+			show tables;
+			show columns from <table>;
+			select * from <table>;
+			select * from <table> where <column> = "<string>";
+
 WINDOWS
 	PowerShell
 		Find-Module -Name "*x*"
